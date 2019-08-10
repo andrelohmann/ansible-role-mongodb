@@ -1,0 +1,39 @@
+---
+- name: remove distribution packages
+  yum:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - mongodb
+    - mongodb-server
+    - mongodb-test
+
+- name: Add MongoDB key
+  rpm_key:
+    key: "https://www.mongodb.org/static/pgp/server-{{ mongodb_version }}.asc"
+    state: present
+
+- name: Install MongoDB repo
+  yum_repository:
+    name: mongodb-org
+    description: MongoDB CE YUM repo
+    file: mongodb-org_repo
+    baseurl: "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ mongodb_version }}/x86_64/"
+    enabled: yes
+
+- name: install MongoDB
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - mongodb-org
+
+- name: start mongod daemon
+  systemd:
+    name: mongod
+    state: started
+    enabled: yes
+
+...

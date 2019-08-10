@@ -1,0 +1,30 @@
+---
+galaxy_info:
+  role_name: mongodb
+  author: andrelohmann
+  description: ansible galaxy role to deploy mongodb
+  company: smartformer UG
+
+  license: MIT
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Debian
+      versions:
+      - jessie
+      - stretch
+    - name: Ubuntu
+      versions:
+      - xenial
+      - bionic
+    - name: EL
+      versions:
+      - 6
+      - 7
+
+  galaxy_tags:
+  - mongodb
+
+dependencies: []
+...
